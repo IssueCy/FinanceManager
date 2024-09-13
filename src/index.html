@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Finance Manager</title>
+    <link rel="icon" href="img/finance-icon.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <div class="headline_container">
+        <img src="img/simtec_logo.png" alt="simtec_logo" />
+        <h1> 
+          Finance Manager <label style="font-size: 12px">v 1.0.0 alpha</label>
+        </h1>
+      </div>
+
+      <div class="menu-links">
+        <a href="index.html" style="text-decoration: underline">Home</a>
+        <a href="https://discord.gg/QBpWyfwcc4">Support</a>
+        <a href="about.html">About Finance Manager©</a>
+        <button class="exportData_button" onclick="exportData()">
+          Export Data
+        </button>
+        <button class="deleteData_button" onclick="deleteData()">
+          Delete Data
+        </button>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div class="upperSection">
+        <div class="current-money_section">
+          <div class="amount_section">
+            <h2 id="amount-display">Available:</h2>
+          </div>
+          <button class="edit_button" id="edit-button" onclick="onBudgetEdit()">Edit</button>
+          <button class="addButton" onclick="addAmount()">Add</button>
+          <button class="removeButton" onclick="removeAmount()">Remove</button>
+          <div class="input-section" id="input-section">
+            <input
+              type="number"
+              id="amount-input"
+              placeholder="Enter new amount"
+            />
+            <button class="submitAmountButton" onclick="submitAmount()">Submit</button>
+          </div>
+        </div>
+
+        <div class="saving_section">
+          <div class="saving_container">
+            <h2>Saving goal: <span style="color: rgb(0, 216, 11);" id="savingAmount-display"></span></h2>
+            <h3><span style="color: rgb(45, 136, 211);" id="reachedProcent-display"></span></h3>
+          </div>
+          <button class="edit_button" id="saving-section_edit-button" onclick="onSavingEdit()">Edit</button>
+          <div id="saving-section_input-section">
+            <input
+            type="number"
+            id="saving-amount-input"
+            placeholder="Enter new goal"
+          />
+            <button class="submitAmountButton" onclick="submitSavingAmount()">Submit</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="debts_section">
+        <h2>Outstanding debts</h2>
+        <div id="debtsMenuSection">
+          <button class="edit_button" id="addDebt" onclick="addDebt()">Add new debt</button>
+        </div>
+        <div id="debtsEmptySection">
+          <div class="inputFieldsSection">
+          <input type="number" id="debts_amount" placeholder="Amount" required>
+          <input type="text" id="debts_recipient" placeholder="Recipient" required>
+          <input type="text" id="debts_reason" placeholder="Reason">
+          <input type="date" id="debts_deadline" placeholder="Deadline (Date)">
+        </div>
+          <button class="submitAmountButton" onclick="submitDebt()">Submit</button>
+        </div>
+
+        <table class="debts_table" id="debtsTable">
+          <tr>
+            <th>Amount</th>
+            <th>Recipient</th>
+            <th>Reason</th>
+            <th>Deadline</th>
+          </tr>
+        </table>
+      </div>
+
+
+      <div class="logTable-Section">
+        <table class="log_table">
+          <tr>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Date & Time</th>
+          </tr>
+
+        </table>
+
+      </div>
+
+
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

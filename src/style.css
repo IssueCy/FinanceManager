@@ -1,0 +1,511 @@
+/*
+    Class names:
+      more than 1 word: ' - '
+      divs: ' _section '
+
+    Colors
+        Primery:
+            #F0F0F0
+            #001358
+
+        Secondary:
+            #f2c327
+            #4287f5
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #f0f0f0;
+  color: #001358;
+}
+
+.header {
+  position: fixed;
+  z-index: 2;
+  top: 0px;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.header img {
+  width: 80px;
+  border-radius: 4px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.header h1 {
+  font-size: 24px;
+}
+
+.headline_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu-links {
+  margin-right: 12px;
+}
+
+.menu-links a {
+  text-decoration: none;
+  color: #001358;
+  transition: 0.1s;
+  margin-right: 16px;
+}
+
+.menu-links a:last-child {
+  margin-right: 0;
+}
+
+.menu-links a:hover {
+  text-decoration: underline;
+}
+
+.deleteData_button {
+  width: 100px;
+  height: 32px;
+  border-radius: 2px;
+  border: none;
+  color: rgb(0, 0, 0);
+  background-color: #f2c327;
+  transition: 0.1s;
+}
+
+.deleteData_button:hover {
+  background-color: #f26727;
+}
+
+.deleteData_button:active {
+  background-color: #da5b21;
+}
+
+.exportData_button {
+  width: 100px;
+  height: 32px;
+  border-radius: 2px;
+  border: none;
+  color: white;
+  background-color: #4287f5;
+  transition: 0.1s;
+  margin-right: 16px;
+}
+
+.exportData_button:hover {
+  background-color: #234591;
+}
+
+.exportData_button:active {
+  background-color: #132e69;
+}
+
+/*------------------Main content------------------*/
+
+.main-container {
+  position: relative;
+  top: 100px;
+}
+
+.upperSection {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.current-money_section {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  min-height: 200px;
+  margin: 12px;
+  padding: 4px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.amount_section {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.308);
+  width: 100%;
+}
+
+.edit_button {
+  width: 200px;
+  height: 32px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  background-color: #4287f5;
+  transition: 0.1s;
+  margin-top: 12px;
+  align-self: center;
+}
+
+.edit_button:hover {
+  background-color: #234591;
+}
+
+#amount-display {
+  color: #e08700;
+}
+
+#amount-input, #saving-amount-input {
+  border-radius: 4px;
+  border: 1px solid black;
+  height: 32px;
+}
+
+.submitAmountButton {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  background-color: #4287f5;
+  transition: 0.1s;
+}
+
+.submitAmountButton:hover,
+.addButton:hover,
+.removeButton:hover {
+  background-color: #234591;
+}
+
+.addButton,
+.removeButton {
+  width: 100px;
+  margin-top: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  background-color: #4287f5;
+  transition: 0.1s;
+}
+
+.addButton {
+  background-color: green;
+}
+
+.removeButton {
+  background-color: #f27127;
+}
+
+.input-section, #saving-section_input-section {
+  display: none;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#saving-section_input-section button {
+  margin-top: 4px;
+}
+
+.input-section input {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+/*-- Table --*/
+
+.log_table {
+  margin: 12px;
+  width: 900px;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.247);
+  cursor: crosshair;
+}
+
+.log_table td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.log_table tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+#aboutIntroduction {
+  margin-top: 125px;
+}
+
+.about_section a {
+  text-decoration: none;
+  color: #4287f5;
+}
+
+.about_section a:hover {
+  text-decoration: underline;
+}
+
+.about_section p {
+  text-align: center;
+}
+
+
+.privacy-policy_section {
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.212);
+  width: 90%;
+  padding: 30px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.privacy-policy_section h2,
+h4 {
+  text-align: center;
+}
+
+.privacy-policy_section p {
+  text-align: left;
+}
+
+.saving_section {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 400px;
+  min-height: 200px;
+  margin: 12px;
+  padding: 4px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.saving_container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.308);
+  width: 100%;
+}
+
+.debts_section {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  min-height: 200px;
+  padding: 8px;
+  margin: 12px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+#debtsEmptySection {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  text-align: center;
+  display: none;
+}
+
+#debtsEmptySection button {
+  margin-top: 12px;
+}
+
+
+
+.inputFieldsSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputFieldsSection input {
+  margin-top: 4px;
+  border-radius: 4px;
+  padding: 4px;
+  border: 1px solid black;
+  height: 24px;
+}
+
+.inputFieldsSection input:focus {
+  border: 4px solid #e9bf04;
+  outline: none;
+}
+
+.debts_table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.247);
+  cursor: crosshair;
+}
+
+.debts_table td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+
+.debts_table tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+
+
+/* Responsive Design */
+
+@media screen and (max-width: 1430px) {
+  .log_table {
+    width: 800px;
+  }
+}
+
+@media screen and (max-width: 1330px) {
+  .log_table {
+    width: 700px;
+  }
+}
+
+@media screen and (max-width: 1230px) {
+  .log_table {
+    width: 470px;
+  }
+
+  .input-section {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .debts_section {
+    width: 450px;
+  }
+
+}
+
+@media screen and (max-width: 1040px) {
+  
+  .menu-links a {
+    margin-right: 10px;
+  }
+
+  .exportData_button {
+    margin-right: 4px;
+  }
+  
+  #amount-input {
+    width: 90%;
+    margin: 4px;
+  }
+
+  #aboutIntroduction {
+    text-align: left;
+    margin-left: 16px;
+  }
+
+}
+
+@media screen and (max-width: 950px) {
+
+  /* Header */
+  
+  .header img {
+    width: 70px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  
+  .header h1 {
+    font-size: 20px;
+  }
+  
+  .menu-links a {
+    margin-right: 8px;
+  }
+  
+  .deleteData_button {
+    width: 85px;
+  }
+  
+  .exportData_button {
+    width: 85px;
+  }
+
+
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .upperSection {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .saving_container {
+    min-height: 20px;
+  }
+
+  .debts_section {
+    position: unset;
+  }
+
+  .log_table {
+    width: 600px;
+  }
+
+  .logTable-Section {
+    display: flex;
+    justify-content: center;
+  }
+
+}
+
+@media screen and (max-width: 880px) {
+
+  .header h1 {
+    display: none;
+  }
+
+  .menu-links {
+    text-align: center;
+    width: 100%;
+  }
+
+
+
+}
+
+
+
+
+
