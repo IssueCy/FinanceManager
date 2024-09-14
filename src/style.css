@@ -184,12 +184,14 @@ body {
 
 .submitAmountButton:hover,
 .addButton:hover,
-.removeButton:hover {
+.removeButton:hover,
+.delRowButton:hover {
   background-color: #234591;
 }
 
 .addButton,
-.removeButton {
+.removeButton,
+.delRowButton {
   width: 100px;
   margin-top: 4px;
   padding: 4px;
@@ -370,9 +372,12 @@ th {
   padding: 8px;
 }
 
-
 .debts_table tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+.delRowButton {
+  background-color: #f27127;
 }
 
 

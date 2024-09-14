@@ -152,9 +152,29 @@ function addDebtToTable(amount, recipient, reason, deadline) {
   let cell2 = newRow.insertCell(1);
   let cell3 = newRow.insertCell(2);
   let cell4 = newRow.insertCell(3);
+  let cell5 = newRow.insertCell(4);
 
   cell1.textContent = `${amount} €`;
   cell2.textContent = recipient;
   cell3.textContent = reason;
   cell4.textContent = deadline;
+
+  let deleteButton = document.createElement('button');
+  deleteButton.textContent = "Delete";
+  deleteButton.classList.add("delRowButton");
+  deleteButton.onclick = function() {
+    deleteDebt(newRow, amount, recipient, reason, deadline);
+  };
+
+  cell5.appendChild(deleteButton);
 }
+
+function deleteDebt(row, amount, recipient, reason, deadline) {
+  row.remove();
+
+  // localstorage
+  let debts = JSON.parse(localStorage.getItem("debts")) || [];
+  debts = debts.filter(debt => debt.amount !== amount || debt.recipient !== recipient || debt.reason !== reason || debt.deadline !== deadline);
+  localStorage.setItem("debts", JSON.stringify(debts));
+}
+
