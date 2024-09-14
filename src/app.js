@@ -1,25 +1,31 @@
+// XXS protection
+function sanitizeHTML(input) {
+  const element = document.createElement('div');
+  element.textContent = input;
+  return element.innerHTML;
+}
 
 // localStorage
 window.onload = function () {
   const savedAmount = localStorage.getItem("budget");
   if (savedAmount) {
-    document.getElementById("amount-display").textContent = `Available: ${savedAmount} €`;
+    document.getElementById("amount-display").textContent = `Available: ${sanitizeHTML(savedAmount)} €`;
   }
 
   const savedSavingAmount = localStorage.getItem("savingAmount");
   if (savedSavingAmount) {
-    document.getElementById("savingAmount-display").textContent = `${savedSavingAmount} €`;
+    document.getElementById("savingAmount-display").textContent = `${sanitizeHTML(savedSavingAmount)} €`;
   }
 
   const savedProcent = localStorage.getItem("procent");
   if (savedProcent) {
-    document.getElementById('reachedProcent-display').textContent = `You reached ${savedProcent} % of your goal!`;
+    document.getElementById('reachedProcent-display').textContent = `You reached ${sanitizeHTML(savedProcent)} % of your goal!`;
   }
 
   const savedDebts = JSON.parse(localStorage.getItem("debts"));
   if (savedDebts) {
     savedDebts.forEach(function(debt) {
-      addDebtToTable(debt.amount, debt.recipient, debt.reason, debt.deadline);
+      addDebtToTable(sanitizeHTML(debt.amount), sanitizeHTML(debt.recipient), sanitizeHTML(debt.reason), sanitizeHTML(debt.deadline));
     });
   }
 };
@@ -90,7 +96,7 @@ function removeAmount() {
 
 function submitAmount() {
   let amount = parseFloat(localStorage.getItem("budget")) || 0;
-  let inputAmount = parseFloat(document.getElementById("amount-input").value) || 0;
+  let inputAmount = parseFloat(sanitizeHTML(document.getElementById("amount-input").value)) || 0;
 
   let newAmount;
 
@@ -127,7 +133,7 @@ function onSavingEdit() {
 }
 
 function submitSavingAmount() {
-  const newAmount = document.getElementById("saving-amount-input").value;
+  const newAmount = sanitizeHTML(document.getElementById("saving-amount-input").value);
 
   localStorage.setItem("savingAmount", newAmount);
 
@@ -153,7 +159,7 @@ function updatePercentage() {
   procent = procent.toFixed(1);
 
   localStorage.setItem("procent", procent);
-  document.getElementById('reachedProcent-display').textContent = `You reached ${procent} % of your goal!`;
+  document.getElementById('reachedProcent-display').textContent = `You reached ${sanitizeHTML(procent)} % of your goal!`;
 }
 
 // debts section
@@ -166,10 +172,10 @@ function submitDebt() {
   document.getElementById('debtsMenuSection').style.display = "block";
   document.getElementById('debtsEmptySection').style.display = "none";
 
-  let debts_amount = document.getElementById('debts_amount').value;
-  let debts_recipient = document.getElementById('debts_recipient').value;
-  let debts_reason = document.getElementById('debts_reason').value;
-  let debts_deadline = document.getElementById('debts_deadline').value;
+  let debts_amount = sanitizeHTML(document.getElementById('debts_amount').value);
+  let debts_recipient = sanitizeHTML(document.getElementById('debts_recipient').value);
+  let debts_reason = sanitizeHTML(document.getElementById('debts_reason').value);
+  let debts_deadline = sanitizeHTML(document.getElementById('debts_deadline').value);
 
   addDebtToTable(debts_amount, debts_recipient, debts_reason, debts_deadline);
 
@@ -193,10 +199,10 @@ function addDebtToTable(amount, recipient, reason, deadline) {
   let cell4 = newRow.insertCell(3);
   let cell5 = newRow.insertCell(4);
 
-  cell1.textContent = `${amount} €`;
-  cell2.textContent = recipient;
-  cell3.textContent = reason;
-  cell4.textContent = deadline;
+  cell1.textContent = `${sanitizeHTML(amount)} €`;
+  cell2.textContent = sanitizeHTML(recipient);
+  cell3.textContent = sanitizeHTML(reason);
+  cell4.textContent = sanitizeHTML(deadline);
 
   let deleteButton = document.createElement('button');
   deleteButton.textContent = "Delete";
@@ -216,4 +222,3 @@ function deleteDebt(row, amount, recipient, reason, deadline) {
   debts = debts.filter(debt => debt.amount !== amount || debt.recipient !== recipient || debt.reason !== reason || debt.deadline !== deadline);
   localStorage.setItem("debts", JSON.stringify(debts));
 }
-

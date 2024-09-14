@@ -192,7 +192,7 @@ body {
 .addButton,
 .removeButton,
 .delRowButton {
-  width: 100px;
+  width: 80px;
   margin-top: 4px;
   padding: 4px;
   border-radius: 4px;
@@ -363,6 +363,7 @@ h4 {
   margin: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.247);
   cursor: crosshair;
+  table-layout: fixed;
 }
 
 .debts_table td,
@@ -370,6 +371,9 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
 }
 
 .debts_table tr:nth-child(even) {
