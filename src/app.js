@@ -1,3 +1,4 @@
+
 // localStorage
 window.onload = function () {
   const savedAmount = localStorage.getItem("budget");
@@ -25,7 +26,7 @@ window.onload = function () {
 
 // export Data button
 function exportData() {
-  if (confirm("You are about to download the 'data.json' file that contains your data.")) {
+  if (confirm("You are about to download the 'data.json' file containing your data.")) {
     const data = {
       budget: localStorage.getItem("budget"),
       savingAmount: localStorage.getItem("savingAmount"),
@@ -46,11 +47,11 @@ function exportData() {
 
 // delete Data button
 function deleteData() {
-  if (confirm("Are you sure you want to delete all data?")) {
+  if (confirm("Are you sure you want to delete all data? \nWe do not store user data, so neither you are able to undo this action")) {
     localStorage.clear();
     document.getElementById("amount-display").textContent = "Available: ";
-    document.getElementById("savingAmount-display").textContent = "Saving goal: ";
-    document.getElementById("reachedProcent-display").textContent = "You reached 0 % of your goal!";
+    document.getElementById("savingAmount-display").textContent = "";
+    document.getElementById("reachedProcent-display").textContent = "No goal set.";
     document.getElementById("amount-input").value = '';
     document.getElementById("debtsTable").innerHTML = `
       <tr>
@@ -63,22 +64,60 @@ function deleteData() {
 }
 
 // budget section
+let isAddMode = false;
+let isRemoveMode = false;
+
 function onBudgetEdit() {
   document.getElementById("edit-button").style.display = "none";
   document.getElementById("input-section").style.display = "block";
+  isAddMode = false;
+  isRemoveMode = false;
+}
+
+function addAmount() {
+  document.getElementById("edit-button").style.display = "none";
+  document.getElementById("input-section").style.display = "block";
+  isAddMode = true;
+  isRemoveMode = false;
+}
+
+function removeAmount() {
+  document.getElementById("edit-button").style.display = "none";
+  document.getElementById("input-section").style.display = "block";
+  isRemoveMode = true;
+  isAddMode = false;
 }
 
 function submitAmount() {
-  const newAmount = document.getElementById("amount-input").value;
+  let amount = parseFloat(localStorage.getItem("budget")) || 0;
+  let inputAmount = parseFloat(document.getElementById("amount-input").value) || 0;
+
+  let newAmount;
+
+  if (isAddMode) {
+    newAmount = amount + inputAmount;
+  } else if (isRemoveMode) {
+    newAmount = amount - inputAmount;
+  } else {
+    newAmount = inputAmount;
+  }
 
   localStorage.setItem("budget", newAmount);
-
-  document.getElementById("amount-display").textContent = `Available: ${newAmount} €`;
+  document.getElementById("amount-display").textContent = `Available: ${newAmount.toFixed(2)} €`;
 
   document.getElementById("input-section").style.display = "none";
   document.getElementById("edit-button").style.display = "block";
 
   updatePercentage();
+
+  isAddMode = false;
+  isRemoveMode = false;
+
+  if (newAmount < 0) {
+    if (confirm("Attention! Your budget is lower that 0. Would you like to add a debt?")) {
+      addDebt();
+    }
+  }
 }
 
 // saving section
