@@ -28,6 +28,23 @@ window.onload = function () {
       addDebtToTable(sanitizeHTML(debt.amount), sanitizeHTML(debt.recipient), sanitizeHTML(debt.reason), sanitizeHTML(debt.deadline));
     });
   }
+
+  const savedLogs = JSON.parse(localStorage.getItem("logs"));
+  if (savedLogs) {
+    savedLogs.forEach(log => {
+      let table = document.getElementById('logTable');
+      let newRow = table.insertRow();
+
+      let amountCell = newRow.insertCell(0);
+      amountCell.textContent = log.amount;
+
+      let typeCell = newRow.insertCell(1);
+      typeCell.textContent = log.action;
+
+      let dateCell = newRow.insertCell(2);
+      dateCell.textContent = log.date;
+    });
+  }
 };
 
 // export Data button
@@ -37,7 +54,8 @@ function exportData() {
       budget: localStorage.getItem("budget"),
       savingAmount: localStorage.getItem("savingAmount"),
       procent: localStorage.getItem("procent"),
-      debts: JSON.parse(localStorage.getItem("debts"))
+      debts: JSON.parse(localStorage.getItem("debts")),
+      logs: JSON.parse(localStorage.getItem("logs"))
     };
     const dataStr = JSON.stringify(data);
     const dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
@@ -66,6 +84,12 @@ function deleteData() {
         <th>Reason</th>
         <th>Deadline</th>
       </tr>`;
+
+      let table = document.getElementById('logTable');
+      while (table.rows.length > 1) {
+        table.deleteRow(1);
+      }
+      localStorage.removeItem("logs");
   }
 }
 
@@ -102,10 +126,13 @@ function submitAmount() {
 
   if (isAddMode) {
     newAmount = amount + inputAmount;
+    addLog(inputAmount.toFixed(2), "add amount");
   } else if (isRemoveMode) {
     newAmount = amount - inputAmount;
+    addLog(inputAmount.toFixed(2), "remove amount");
   } else {
     newAmount = inputAmount;
+    addLog(newAmount.toFixed(2), "edit amount");
   }
 
   localStorage.setItem("budget", newAmount);
@@ -136,8 +163,9 @@ function submitSavingAmount() {
   const newAmount = sanitizeHTML(document.getElementById("saving-amount-input").value);
 
   localStorage.setItem("savingAmount", newAmount);
-
   document.getElementById("savingAmount-display").textContent = `${newAmount} €`;
+
+  addLog(newAmount, "edit saving goal");
 
   updatePercentage();
 
@@ -183,6 +211,8 @@ function submitDebt() {
   debts.push({ amount: debts_amount, recipient: debts_recipient, reason: debts_reason, deadline: debts_deadline });
   localStorage.setItem("debts", JSON.stringify(debts));
 
+  addLog(debts_amount, "added new debt");
+
   document.getElementById('debts_amount').value = '';
   document.getElementById('debts_recipient').value = '';
   document.getElementById('debts_reason').value = '';
@@ -221,4 +251,39 @@ function deleteDebt(row, amount, recipient, reason, deadline) {
   let debts = JSON.parse(localStorage.getItem("debts")) || [];
   debts = debts.filter(debt => debt.amount !== amount || debt.recipient !== recipient || debt.reason !== reason || debt.deadline !== deadline);
   localStorage.setItem("debts", JSON.stringify(debts));
+
+  addLog(amount, "remove debt");
+}
+
+function addLog(amount, actionType) {
+  let table = document.getElementById('logTable');
+  let newRow = table.insertRow();
+
+  let amountCell = newRow.insertCell(0);
+  amountCell.textContent = amount ? `${amount} €` : 'N/A';
+
+  let typeCell = newRow.insertCell(1);
+  typeCell.textContent = actionType;
+
+  let dateCell = newRow.insertCell(2);
+  let currentDate = new Date();
+  dateCell.textContent = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
+
+  // localstorage
+  let logs = JSON.parse(localStorage.getItem("logs")) || [];
+  logs.push({
+    amount: amount ? `${amount} €` : 'N/A',
+    action: actionType,
+    date: `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}` 
+  }),
+  localStorage.setItem("logs", JSON.stringify(logs));
+}
+
+function deleteLogs() {
+  let table = document.getElementById('logTable');
+
+  while(table.rows.length > 1) {
+    table.deleteRow(1);
+    localStorage.removeItem("logs");
+  }
 }

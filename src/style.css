@@ -246,6 +246,24 @@ th {
   background-color: #dddddd;
 }
 
+#deleteLogs-button {
+  width: 100px;
+  margin: 12px;
+  height: 24px;
+  border-radius: 2px;
+  border: none;
+  color: rgb(0, 0, 0);
+  background-color: #f2c327;
+  transition: 0.1s;
+}
+
+#deleteLogs-button:hover {
+  background-color: #f26727;
+}
+
+#deleteLogs-button:active {
+  background-color: #da5b21;
+}
 
 #aboutIntroduction {
   margin-top: 125px;
@@ -480,12 +498,22 @@ th {
     align-items: center;
   }
 
+  .current-money_section {
+    width: 600px;
+  }
+
   .saving_container {
     min-height: 20px;
   }
 
+  .saving_section {
+    width: 600px;
+    max-width: 600px;
+  }
+
   .debts_section {
     position: unset;
+    width: 600px;
   }
 
   .log_table {
