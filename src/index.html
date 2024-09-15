@@ -26,9 +26,6 @@
         <a href="index.html" style="text-decoration: underline">Home</a>
         <a href="https://discord.gg/QBpWyfwcc4">Support</a>
         <a href="about.html">About Finance Manager©</a>
-        <button class="exportData_button" onclick="exportData()">
-          Export Data
-        </button>
         <button class="deleteData_button" onclick="deleteData()">
           Delete Data
         </button>
@@ -97,6 +94,20 @@
         </table>
       </div>
 
+      <div class="importExportDataSection">
+        <h4>Import from data.json:</h4>
+        <input type="file" id="file-input" accept=".json" />
+        <div class="buttonWrapper">
+          <button class="importData_button" onclick="importData()">
+            Import Data
+          </button>
+          <button class="exportData_button" onclick="exportData()">
+            Export Data
+          </button>
+        </div>
+      </div>
+
+      <button id="deleteLogs-button" onclick="deleteLogs()">Delete Logs</button>
       <div class="logTable-Section">
         <table id="logTable" class="log_table">
           <tr>
@@ -106,7 +117,6 @@
           </tr>
         </table>
       </div>
-      <button id="deleteLogs-button" onclick="deleteLogs()">Delete Logs</button>
 
 
     </div>

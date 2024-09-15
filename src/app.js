@@ -47,6 +47,97 @@ window.onload = function () {
   }
 };
 
+// import data from users data.json file
+function importData() {
+  const fileInput = document.getElementById('file-input');
+  const file = fileInput.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      try {
+        const importedData = JSON.parse(event.target.result);
+
+        console.log("Imported Data:", importedData);
+
+        if (importedData.budget) {
+          localStorage.setItem('budget', importedData.budget);
+          document.getElementById("amount-display").textContent = `Available: ${sanitizeHTML(importedData.budget)} €`;
+        } else {
+          console.error("Budget not found in imported data");
+        }
+
+        if (importedData.savingAmount) {
+          localStorage.setItem('savingAmount', importedData.savingAmount);
+          document.getElementById("savingAmount-display").textContent = `${sanitizeHTML(importedData.savingAmount)} €`;
+        } else {
+          console.error("Saving amount not found in imported data");
+        }
+
+        if (importedData.procent) {
+          localStorage.setItem('procent', importedData.procent);
+          document.getElementById('reachedProcent-display').textContent = `You reached ${sanitizeHTML(importedData.procent)} % of your goal!`;
+        } else {
+          console.error("Percentage (procent) not found in imported data");
+        }
+
+        if (Array.isArray(importedData.debts)) {
+          localStorage.setItem('debts', JSON.stringify(importedData.debts));
+          document.getElementById("debtsTable").innerHTML = `
+            <tr>
+              <th>Amount</th>
+              <th>Recipient</th>
+              <th>Reason</th>
+              <th>Deadline</th>
+            </tr>`;
+          importedData.debts.forEach(debt => {
+            addDebtToTable(sanitizeHTML(debt.amount), sanitizeHTML(debt.recipient), sanitizeHTML(debt.reason), sanitizeHTML(debt.deadline));
+          });
+        } else {
+          console.error("Debts array not found or invalid in imported data");
+        }
+
+        if (Array.isArray(importedData.logs)) {
+          localStorage.setItem('logs', JSON.stringify(importedData.logs));
+          document.getElementById("logTable").innerHTML = `
+            <tr>
+              <th>Amount</th>
+              <th>Action</th>
+              <th>Date</th>
+            </tr>`;
+          importedData.logs.forEach(log => {
+            let table = document.getElementById('logTable');
+            let newRow = table.insertRow();
+
+            let amountCell = newRow.insertCell(0);
+            amountCell.textContent = sanitizeHTML(log.amount);
+
+            let typeCell = newRow.insertCell(1);
+            typeCell.textContent = sanitizeHTML(log.action);
+
+            let dateCell = newRow.insertCell(2);
+            dateCell.textContent = sanitizeHTML(log.date);
+          });
+        } else {
+          console.error("Logs array not found or invalid in imported data");
+        }
+
+        updatePercentage();
+
+        alert('Data imported successfully!');
+      } catch (error) {
+        console.error("Error parsing JSON file:", error);
+        alert('Error importing data: Invalid file format.');
+      }
+    };
+    reader.readAsText(file);
+  } else {
+    alert('Please select a file.');
+  }
+}
+
+
+
 // export Data button
 function exportData() {
   if (confirm("You are about to download the 'data.json' file containing your data.")) {
@@ -126,13 +217,13 @@ function submitAmount() {
 
   if (isAddMode) {
     newAmount = amount + inputAmount;
-    addLog(inputAmount.toFixed(2), "add amount");
+    addLog(inputAmount.toFixed(2), "Amount added");
   } else if (isRemoveMode) {
     newAmount = amount - inputAmount;
-    addLog(inputAmount.toFixed(2), "remove amount");
+    addLog(inputAmount.toFixed(2), "Amount removed");
   } else {
     newAmount = inputAmount;
-    addLog(newAmount.toFixed(2), "edit amount");
+    addLog(newAmount.toFixed(2), "Amount edited");
   }
 
   localStorage.setItem("budget", newAmount);
@@ -165,7 +256,7 @@ function submitSavingAmount() {
   localStorage.setItem("savingAmount", newAmount);
   document.getElementById("savingAmount-display").textContent = `${newAmount} €`;
 
-  addLog(newAmount, "edit saving goal");
+  addLog(newAmount, "Saving goal edited");
 
   updatePercentage();
 
@@ -211,7 +302,7 @@ function submitDebt() {
   debts.push({ amount: debts_amount, recipient: debts_recipient, reason: debts_reason, deadline: debts_deadline });
   localStorage.setItem("debts", JSON.stringify(debts));
 
-  addLog(debts_amount, "added new debt");
+  addLog(debts_amount, "New debt added");
 
   document.getElementById('debts_amount').value = '';
   document.getElementById('debts_recipient').value = '';
@@ -252,7 +343,7 @@ function deleteDebt(row, amount, recipient, reason, deadline) {
   debts = debts.filter(debt => debt.amount !== amount || debt.recipient !== recipient || debt.reason !== reason || debt.deadline !== deadline);
   localStorage.setItem("debts", JSON.stringify(debts));
 
-  addLog(amount, "remove debt");
+  addLog(amount, "Debt removed");
 }
 
 function addLog(amount, actionType) {

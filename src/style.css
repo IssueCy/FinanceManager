@@ -94,8 +94,9 @@ body {
   background-color: #da5b21;
 }
 
-.exportData_button {
+.exportData_button, .importData_button {
   width: 100px;
+  min-width: 100px;
   height: 32px;
   border-radius: 2px;
   border: none;
@@ -111,6 +112,18 @@ body {
 
 .exportData_button:active {
   background-color: #132e69;
+}
+
+.importData_button {
+  background-color: green;
+}
+
+.importData_button:hover {
+  background-color: rgb(2, 100, 2);
+}
+
+.importData_button:active {
+  background-color: rgb(3, 70, 3);
 }
 
 /*------------------Main content------------------*/
@@ -265,8 +278,43 @@ th {
   background-color: #da5b21;
 }
 
-#aboutIntroduction {
+
+
+
+.importExportDataSection {
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: fit-content;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.247);
+  margin: 12px;
+}
+
+.buttonWrapper {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.importExportDataSection h4 {
+  margin-right: 12px;
+}
+
+.about_section {
   margin-top: 125px;
+}
+
+#aboutIntroduction {
+  margin-top: 24px;
 }
 
 .about_section a {
@@ -523,6 +571,10 @@ th {
   .logTable-Section {
     display: flex;
     justify-content: center;
+  }
+
+  .importExportDataSection {
+    position: unset;
   }
 
 }
