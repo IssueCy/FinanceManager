@@ -1,6 +1,6 @@
 {
   "name": "personalfinancemanager",
-  "productName": "personalfinancemanager",
+  "productName": "Finance Manager",
   "version": "1.0.0",
   "description": "Finance Manager Desktop application",
   "main": "src/index.js",
