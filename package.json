@@ -23,7 +23,7 @@
     "electron": "32.0.1"
   },
   "keywords": [],
-  "author": "Merix_",
+  "author": "Simtec Applications",
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1"
