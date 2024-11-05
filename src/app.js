@@ -1,3 +1,12 @@
+//?   Open links in new browser tab instead of electron window
+function openExternalLink(url) {
+  window.open(url, '_blank');
+}
+
+//?   update footer copyright year automatic 
+const copyright = document.getElementById('copyrightDate');
+if (copyright) copyright.innerHTML = `© 2023 - ${new Date().getFullYear()} Simtec Applications`;
+
 // XXS protection
 function sanitizeHTML(input) {
   const element = document.createElement('div');
